@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Phase3task</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <h2>InstaClone</h2>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <ul>
+            <div class="row">
+              <% if logged_in? %>
+                <div class="col-xs-4">
+                  <li><%= link_to "View", pictures_path, class:"btn btn-primary" %></li>
+                </div>
+                <div class="col-xs-4">
+                  <li><%= link_to "Profile", user_path(current_user.id), class:"btn btn-primary" %></li>
+                </div>
+                <div class="col-xs-4">
+                  <li><%= link_to "Logout", session_path(current_user.id), class:"btn btn-primary", method: :delete %></li>
+                </div>
+              <% else %>
+                <div class="col-xs-6">
+                  <li><%= link_to "Sign up", new_user_path %></li>
+                </div>
+                <div class="col-xs-6">
+                  <li><%= link_to "Login", new_session_path %></li>
+                </div>
+              <% end %>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+
+    <%= yield %>
+
+    <footer>
+      <p>© 2015-2018 Copyright DIVE INTO CODE Corp.</p>
+    </footer>
+  </body>
+</html>

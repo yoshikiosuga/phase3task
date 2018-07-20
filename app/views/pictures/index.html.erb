@@ -1,0 +1,27 @@
+
+<div class="container bottom_over">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Pictures</h1>
+      <div id="new-picture-link">
+        <%= link_to '新しく投稿する', new_picture_path, class: 'btn btn-default' %>
+      </div>
+    </div>
+
+    <% @pictures.each do |picture| %>
+      <div class="col-xs-12 col-md-6 picture-panel">
+        <%= image_tag picture.image %>
+        <p><%= picture.content %></p>
+        <div class="picture-links">
+          <%= link_to 'Show', picture, class: 'btn btn-default' %>
+          <% if current_user.present? %>
+            <% if picture.user_id == current_user.id %>
+              <%= link_to 'Edit', edit_picture_path(picture), class: 'btn btn-info' %>
+              <%= link_to 'Destroy', picture, method: :delete, data: { confirm: '本当に削除していいですか？' }, class: 'btn btn-danger' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

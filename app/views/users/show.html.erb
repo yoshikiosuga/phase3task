@@ -1,0 +1,27 @@
+<div class="container bottom_over">
+  <div class="row">
+
+    <p><strong>Name:</strong><%= @user.name %></p>
+
+    <p><strong>Email:</strong><%= @user.email %></p>
+
+    <%= link_to '編集', edit_user_path(@user), class: 'btn btn-default' %>
+  </div>
+
+  <div class="row">
+    <% if @favorites_pictures.present? %>
+      <% @favorites_pictures.each do |picture| %>
+        <div class="col-xs-12 col-md-6">
+          <%= image_tag picture.image %>
+          <h2><%= picture.title %></h2>
+          <p><%= picture.content %></p>
+          <div class="picture-links">
+            <%= link_to '詳細', picture, class: 'btn btn-default' %>
+            <% favorite = @user.favorites.find_by(picture_id: picture.id) %>
+            <%= link_to 'お気に入り解除する', favorite_path(id: favorite.id), method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
